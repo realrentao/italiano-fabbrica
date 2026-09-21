@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>意大利语华人工厂实用手册 · Fabbrica Cinese</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --surface: #ffffff; --surface2: #eef0f3; --border: #dde0e4;
+    --text: #161a1f; --text-dim: #4b5563; --text-faint: #8b95a5;
+    --green: #1a7f37; --green-l: #e6f4ea; --blue: #0550ae; --blue-l: #e3edfc;
+    --gold: #855f1c; --gold-l: #fef3e2; --purple: #6f42c1; --purple-l: #f0eaff;
+    --teal: #0e7c7b; --teal-l: #e1f3f3; --red: #cf222e; --red-l: #ffe7e7;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06); --shadow-lg: 0 8px 32px rgba(0,0,0,.1);
+    --radius-sm: 6px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --nav-h: 56px; --tab-h: 48px; --sidebar-w: 200px;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; padding-top: var(--nav-h); }
+
+  .flag-it { display:inline-block; width:28px; height:19px; background:linear-gradient(90deg,#009246 0%,#009246 33.33%,#fff 33.33%,#fff 66.66%,#ce2b37 66.66%,#ce2b37 100%); border-radius:2px; box-shadow:0 1px 3px rgba(0,0,0,.18); vertical-align:middle; flex-shrink:0; }
+  .flag-it-sm { width:20px; height:14px; }
+
+  .top-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+  .top-bar-inner { display: flex; align-items: center; gap: 12px; padding: 0 16px; height: var(--nav-h); max-width: 1200px; margin: 0 auto; }
+  .top-bar .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; white-space: nowrap; color: var(--text); }
+  .search-wrap { flex: 1; position: relative; max-width: 400px; }
+  .search-wrap input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid var(--border); border-radius: 20px; font-size: 14px; background: var(--bg); color: var(--text); outline: none; transition: all .2s; }
+  .search-wrap input:focus { border-color: var(--blue); background: var(--surface); box-shadow: 0 0 0 3px var(--blue-l); }
+  .search-wrap .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-faint); font-size: 14px; }
+  .search-wrap .clear-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-faint); cursor: pointer; padding: 2px 6px; border-radius: 50%; font-size: 16px; display: none; }
+  .search-wrap .clear-btn.show { display: block; }
+  .search-wrap .clear-btn:hover { background: var(--surface2); }
+
+  .layout-wrap { display: flex; min-height: calc(100vh - var(--nav-h)); }
+  .tab-bar { width: var(--sidebar-w); flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; padding: 8px 0; }
+  .tab-bar::-webkit-scrollbar { width: 4px; }
+  .tab-bar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .tab-bar-inner { display: flex; flex-direction: column; gap: 2px; padding: 0 6px; }
+  .tab-btn { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: none; background: none; font-size: 13px; font-weight: 500; color: var(--text-dim); cursor: pointer; border-radius: var(--radius-sm); text-align: left; transition: all .15s; font-family: var(--font); white-space: nowrap; }
+  .tab-btn:hover { background: var(--surface2); color: var(--text); }
+  .tab-btn.active { color: var(--blue); background: var(--blue-l); font-weight: 600; }
+  .tab-btn .tab-label { overflow: hidden; text-overflow: ellipsis; }
+  .nav-toggle { display: none; }
+  .nav-dropdown { display: none; }
+  .nav-overlay { display: none; }
+
+  .main { flex: 1; max-width: 960px; padding: 24px 24px 80px; margin: 0 auto; }
+  .section-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+  .section-desc { color: var(--text-dim); font-size: 14px; margin-bottom: 24px; }
+  .subsection-title { font-size: 17px; font-weight: 600; margin: 28px 0 14px; padding: 10px 16px; background: var(--surface2); border-radius: var(--radius-sm); border-left: 4px solid var(--blue); color: var(--text); position: sticky; top: var(--nav-h); z-index: 10; }
+
+  .entry-card { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 6px; transition: all .15s; }
+  .entry-card:hover { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue-l); }
+  .entry-card .play-btn { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--text-dim); transition: all .2s; }
+  .entry-card .play-btn:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .entry-card .play-btn.playing { background: var(--green); border-color: var(--green); color: #fff; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  .entry-card .entry-body { flex: 1; min-width: 0; }
+  .entry-card .entry-ita { font-size: 15px; font-weight: 600; color: var(--text); word-break: break-word; }
+  .entry-card .entry-chn { font-size: 14px; color: var(--text-dim); margin-top: 2px; }
+  .entry-card .entry-extra { font-size: 12px; color: var(--text-faint); margin-top: 3px; font-style: italic; }
+  .entry-card .entry-role { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 10px; background: var(--surface2); color: var(--text-faint); margin-bottom: 4px; }
+
+  .dialog-group { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+  .dialog-group .entry-card { border: none; border-radius: 0; margin-bottom: 0; border-bottom: 1px solid var(--border); }
+  .dialog-group .entry-card:last-child { border-bottom: none; }
+
+  .null-state { text-align: center; padding: 60px 20px; color: var(--text-faint); }
+  .null-state .null-icon { font-size: 48px; margin-bottom: 12px; }
+  .search-info { margin-bottom: 12px; font-size: 13px; color: var(--text-dim); }
+  .audio-loading { display: none; position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; box-shadow: var(--shadow-lg); font-size: 13px; color: var(--text-dim); z-index: 200; }
+  .audio-loading.show { display: block; }
+  .footer { text-align: center; padding: 32px 16px; border-top: 1px solid var(--border); color: var(--text-faint); font-size: 13px; background: var(--surface); margin-top: 40px; }
+
+  @media (max-width: 768px) {
+    body { padding-top: calc(var(--nav-h) + var(--tab-h)); }
+    .top-bar-inner { padding: 0 10px; gap: 8px; }
+    .top-bar .logo { font-size: 13px; }
+    .layout-wrap { display: block; min-height: auto; }
+    .tab-bar { position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 99; width: auto; border-right: none; border-bottom: 1px solid var(--border); overflow-x: auto; overflow-y: hidden; padding: 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-bar-inner { display: flex; flex-direction: row; height: var(--tab-h); padding: 0 8px; gap: 0; }
+    .tab-btn { flex-shrink: 0; padding: 0 14px; height: 100%; border-radius: 0; text-align: center; white-space: nowrap; font-size: 12px; justify-content: center; }
+    .tab-btn:hover { background: none; }
+    .tab-btn.active { background: none; color: var(--blue); box-shadow: inset 0 -3px 0 var(--blue); }
+    .nav-toggle { display: flex !important; position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 100; height: var(--tab-h); background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 12px; cursor: pointer; align-items: center; gap: 8px; user-select: none; -webkit-tap-highlight-color: transparent; }
+    .nav-toggle .hamburger { display: flex; flex-direction: column; gap: 4px; padding: 4px; }
+    .nav-toggle .hamburger span { display: block; width: 20px; height: 2px; background: var(--text-dim); border-radius: 2px; transition: all .3s; }
+    .nav-toggle.open .hamburger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle.open .hamburger span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open .hamburger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .nav-toggle .nav-current { flex: 1; font-size: 14px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .nav-toggle .nav-arrow { font-size: 12px; color: var(--text-faint); transition: transform .3s; }
+    .nav-toggle.open .nav-arrow { transform: rotate(180deg); }
+    .nav-overlay { display: none; position: fixed; top: calc(var(--nav-h) + var(--tab-h)); left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.35); z-index: 98; opacity: 0; transition: opacity .25s; }
+    .nav-overlay.show { display: block; opacity: 1; }
+    .nav-dropdown { display: none; position: fixed; top: calc(var(--nav-h) + var(--tab-h)); left: 0; right: 0; max-height: 70vh; overflow-y: auto; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-lg); z-index: 99; padding: 8px 0; opacity: 0; transform: translateY(-8px); transition: all .25s ease; }
+    .nav-dropdown.show { display: block; opacity: 1; transform: translateY(0); }
+    .nav-dropdown .nav-drop-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 18px; border: none; background: none; font-size: 14px; font-weight: 500; color: var(--text-dim); cursor: pointer; text-align: left; transition: all .12s; font-family: var(--font); -webkit-tap-highlight-color: transparent; }
+    .nav-dropdown .nav-drop-btn:hover { background: var(--surface2); }
+    .nav-dropdown .nav-drop-btn.active { color: var(--blue); background: var(--blue-l); font-weight: 600; }
+    .nav-dropdown .nav-drop-btn .drop-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .nav-dropdown .nav-drop-btn .drop-label { flex: 1; }
+    .nav-dropdown .nav-drop-btn .drop-check { font-size: 14px; color: var(--blue); opacity: 0; transition: opacity .15s; }
+    .nav-dropdown .nav-drop-btn.active .drop-check { opacity: 1; }
+    .main { max-width: 100%; padding: 14px 10px 80px; }
+    .section-title { font-size: 19px; }
+    .subsection-title { font-size: 15px; padding: 8px 12px; top: calc(var(--nav-h) + var(--tab-h)); }
+    .entry-card { padding: 8px 10px; }
+    .entry-card .entry-ita { font-size: 14px; }
+    .entry-card .entry-chn { font-size: 13px; }
+    .entry-card .play-btn { width: 28px; height: 28px; font-size: 12px; }
+    .search-wrap { max-width: none; }
+  }
+  @media (max-width: 400px) {
+    .top-bar .logo { font-size: 11px; }
+    .tab-btn { padding: 0 8px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="logo"><span class="flag-it"></span> 华人工厂意大利语</div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="搜索意大利语或中文..." autocomplete="off">
+      <button class="clear-btn" id="clearBtn">✕</button>
+    </div>
+  </div>
+</div>
+
+<div class="layout-wrap">
+  <div class="tab-bar" id="tabBar"><div class="tab-bar-inner" id="tabBarInner"></div></div>
+  <div class="nav-toggle" id="navToggle"><div class="hamburger"><span></span><span></span><span></span></div><span class="nav-current" id="navCurrent">加载中...</span><span class="nav-arrow">▾</span></div>
+  <div class="nav-dropdown" id="navDropdown"></div>
+  <div class="nav-overlay" id="navOverlay"></div>
+  <div class="main" id="mainContent"></div>
+</div>
+
+<div class="footer">
+  <p><span class="flag-it flag-it-sm"></span> <em>意大利语华人工厂实用手册 · Manuale della Fabbrica Cinese</em></p>
+  <p style="margin-top:4px;font-size:12px;color:var(--text-faint);">面向意大利华人制造业从业者 · 🔊 点击意大利语播放配音</p>
+</div>
+<div class="audio-loading" id="audioLoading">⏳ 音频加载中...</div>
+
+<script>
+const SECTIONS = [{"title":"🇮🇹 意大利语华人工厂","subsections":[{"title":"📑 目录","entries":[{"ita":"Prima parte: Il settore e la fabbrica","chn":"第一部分 · 行业概况·工厂","extra":"先认门","section":"🇮🇹 意大利语华人工厂"},{"ita":"Seconda parte: I mestieri e i ruoli","chn":"第二部分 · 工种·岗位","extra":"谁干什么","section":"🇮🇹 意大利语华人工厂"},{"ita":"Terza parte: La fabbrica e le macchine","chn":"第三部分 · 厂房·设备","extra":"看机器","section":"🇮🇹 意大利语华人工厂"},{"ita":"Quarta parte: Le fasi di lavoro","chn":"第四部分 · 工序·流程","extra":"生产链","section":"🇮🇹 意大利语华人工厂"},{"ita":"Quinta parte: Tessuti e materiali","chn":"第五部分 · 面料·原料","extra":"货品材质","section":"🇮🇹 意大利语华人工厂"},{"ita":"Sesta parte: Sicurezza sul lavoro","chn":"第六部分 · 安全生产","extra":"保命重要","section":"🇮🇹 意大利语华人工厂"},{"ita":"Settima parte: Dialoghi in fabbrica","chn":"第七部分 · 车间对话","extra":"照着说就行","section":"🇮🇹 意大利语华人工厂"},{"ita":"Ottava parte: Frasi utili e cultura","chn":"第八部分 · 万能句型·职场文化","extra":"附录","section":"🇮🇹 意大利语华人工厂"}]}]},{"title":"第1部分 · 🏭 行业概况·工厂","subsections":[{"title":"1.1 行业与产区","entries":[{"ita":"La fabbrica","chn":"工厂","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0001"},{"ita":"L’azienda","chn":"企业 / 公司","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0002"},{"ita":"La manifattura","chn":"制造业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0003"},{"ita":"Il settore tessile","chn":"纺织业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0004"},{"ita":"L’abbigliamento","chn":"服装业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0005"},{"ita":"La pelletteria","chn":"皮具业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0006"},{"ita":"La meccanica","chn":"机械加工业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0007"},{"ita":"Prato","chn":"普拉托（著名华人工厂聚集地）","extra":"托斯卡纳","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0008"},{"ita":"Il distretto industriale","chn":"工业区","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0009"},{"ita":"La zona industriale","chn":"工业园","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0010"},{"ita":"Il titolare","chn":"老板 / 企业主","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0011"},{"ita":"Il socio","chn":"合伙人","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0012"},{"ita":"L’imprenditore cinese","chn":"华人企业家","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0013"},{"ita":"La produzione","chn":"生产","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0014"},{"ita":"Il made in Italy","chn":"意大利制造","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0015"},{"ita":"L’esportazione","chn":"出口","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0016"},{"ita":"La confezione","chn":"成衣加工 / 包装","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0017"},{"ita":"Il laboratorio","chn":"作坊 / 加工间","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0018"}]},{"title":"1.2 工厂部门与场所","entries":[{"ita":"Il reparto","chn":"车间 / 部门","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0019"},{"ita":"Il reparto taglio","chn":"裁剪车间","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0020"},{"ita":"Il reparto cucito","chn":"缝纫车间","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0021"},{"ita":"Il reparto stiratura","chn":"整烫车间","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0022"},{"ita":"Il magazzino","chn":"仓库","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0023"},{"ita":"Il magazzino materie prime","chn":"原料仓","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0024"},{"ita":"Il magazzino prodotti finiti","chn":"成品仓","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0025"},{"ita":"L’ufficio","chn":"办公室","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0026"},{"ita":"Lo spogliatoio","chn":"更衣室","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0027"},{"ita":"La mensa","chn":"食堂","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0028"},{"ita":"I cancelli","chn":"厂门 / 大门","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0029"},{"ita":"Il parcheggio","chn":"停车场","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0030"},{"ita":"Il carico e scarico","chn":"装卸货区","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0031"},{"ita":"La linea di produzione","chn":"生产线","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0032"},{"ita":"Il turno","chn":"班次","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0033"},{"ita":"Il turno di giorno","chn":"白班","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0034"},{"ita":"Il turno di notte","chn":"夜班","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0035"}]}]},{"title":"第2部分 · 👷 工种·岗位","subsections":[{"title":"2.1 管理岗位","entries":[{"ita":"Il direttore di fabbrica","chn":"厂长","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0036"},{"ita":"Il caporeparto","chn":"组长 / 车间主管","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0037"},{"ita":"Il responsabile di produzione","chn":"生产负责人","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0038"},{"ita":"Il capo macchina","chn":"机长","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0039"},{"ita":"Il controllore qualità","chn":"质检员","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0040"},{"ita":"Il magazziniere","chn":"仓库管理员","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0041"},{"ita":"Il fattorino","chn":"送货员","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0042"},{"ita":"L’addetto alle spedizioni","chn":"发货员","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0043"},{"ita":"L’amministratore","chn":"行政 / 财务","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0044"},{"ita":"L’interprete","chn":"翻译","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0045"}]},{"title":"2.2 一线工人","entries":[{"ita":"L’operaio","chn":"工人（总称）","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0046"},{"ita":"L’operaia","chn":"女工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0047"},{"ita":"Il tagliatore","chn":"裁剪工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0048"},{"ita":"La cucitrice","chn":"缝纫工（女）","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0049"},{"ita":"Il cucitore","chn":"缝纫工（男）","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0050"},{"ita":"Il ricamatrice","chn":"绣花工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0051"},{"ita":"La stiratrice","chn":"熨烫工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0052"},{"ita":"L’imballatore","chn":"包装工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0053"},{"ita":"Il tagliacuci","chn":"锁边工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0054"},{"ita":"Il confezionista","chn":"车缝工 / 成衣工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0055"},{"ita":"L’apprendista","chn":"学徒","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0056"},{"ita":"L’operaio a cottimo","chn":"计件工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0057"},{"ita":"Il lavoratore","chn":"劳动者 / 员工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0058"},{"ita":"La mano d’opera","chn":"劳动力 / 人工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0059"}]}]},{"title":"第3部分 · ⚙ 厂房·设备","subsections":[{"title":"3.1 缝纫与裁剪设备","entries":[{"ita":"La macchina da cucire","chn":"缝纫机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0060"},{"ita":"La macchina per cucire industriale","chn":"工业缝纫机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0061"},{"ita":"Il tagliacuci","chn":"锁边机 / 拷边机","extra":"overlock","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0062"},{"ita":"La macchina da taglio","chn":"裁布机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0063"},{"ita":"Il banco da taglio","chn":"裁剪台","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0064"},{"ita":"Le forbici da tessuto","chn":"裁布剪刀","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0065"},{"ita":"La rotella tagliatessuti","chn":"滚轮裁刀","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0066"},{"ita":"Il ferro da stiro","chn":"熨斗","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0067"},{"ita":"La caldaia per stiro","chn":"蒸汽烫台 / 锅炉","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0068"},{"ita":"La macchina per etichette","chn":"钉标机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0069"},{"ita":"La cucitrice a doppia catena","chn":"双针机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0070"},{"ita":"La bobina","chn":"梭芯 / 线轴","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0071"},{"ita":"L’ago","chn":"缝纫针","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0072"},{"ita":"Il piedino","chn":"压脚","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0073"}]},{"title":"3.2 辅助与搬运","entries":[{"ita":"Il carrello elevatore","chn":"叉车","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0074"},{"ita":"Il trasportatore","chn":"传送带","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0075"},{"ita":"La bilancia","chn":"秤","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0076"},{"ita":"Il metro a nastro","chn":"卷尺","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0077"},{"ita":"La stampante di etichette","chn":"标签打印机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0078"},{"ita":"Il computer di controllo","chn":"控制电脑","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0079"},{"ita":"Il compressore","chn":"空压机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0080"},{"ita":"La scatola","chn":"纸箱","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0081"},{"ita":"Il nastro adesivo","chn":"胶带","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0082"},{"ita":"Il pallet","chn":"托盘","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0083"},{"ita":"L'imballaggio","chn":"包装材料","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0084"},{"ita":"La gru","chn":"吊车","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0085"}]}]},{"title":"第4部分 · 🔄 工序·流程","subsections":[{"title":"4.1 生产工序","entries":[{"ita":"Il taglio","chn":"裁剪","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0086"},{"ita":"Il modello","chn":"纸样 / 样板","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0087"},{"ita":"La stesura","chn":"铺布 / 排料","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0088"},{"ita":"La cucitura","chn":"缝纫","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0089"},{"ita":"Il sopraggitto","chn":"包缝 / 锁边","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0090"},{"ita":"La rifinitura","chn":"整烫 / 修饰","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0091"},{"ita":"Il controllo qualità","chn":"质检","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0092"},{"ita":"La stiratura","chn":"熨烫","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0093"},{"ita":"L’assemblaggio","chn":"组装 / 拼接","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0094"},{"ita":"L’imbastitura","chn":"假缝 / 粗缝","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0095"},{"ita":"La piega","chn":"折边","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0096"},{"ita":"L’orlo","chn":"下摆 / 卷边","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0097"},{"ita":"La confezione","chn":"成衣制作","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0098"},{"ita":"L’etichetta","chn":"商标 / 洗标","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0099"},{"ita":"Il bottone","chn":"纽扣","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0100"},{"ita":"La cerniera","chn":"拉链","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0101"}]},{"title":"4.2 包装与发货","entries":[{"ita":"L’imballaggio","chn":"包装","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0102"},{"ita":"La scatola di cartone","chn":"纸箱","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0103"},{"ita":"Il polistirolo","chn":"泡沫 / 保丽龙","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0104"},{"ita":"La pellicola","chn":"塑料膜","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0105"},{"ita":"Il nastro da imballo","chn":"打包带","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0106"},{"ita":"La palettizzazione","chn":"打托盘","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0107"},{"ita":"La spedizione","chn":"发货","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0108"},{"ita":"La consegna","chn":"送货","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0109"},{"ita":"Il corriere","chn":"快递 / 货运公司","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0110"},{"ita":"La fattura","chn":"发票","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0111"},{"ita":"Il documento di trasporto","chn":"运单","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0112"},{"ita":"Il codice a barre","chn":"条形码","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0113"},{"ita":"Il lotto","chn":"批次","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0114"},{"ita":"La quantità","chn":"数量","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0115"},{"ita":"La scadenza","chn":"交货期 / 截止日","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0116"}]}]},{"title":"第5部分 · 🧵 面料·原料","subsections":[{"title":"5.1 纺织面料","entries":[{"ita":"Il tessuto","chn":"布料 / 面料","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0117"},{"ita":"Il cotone","chn":"棉","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0118"},{"ita":"La lana","chn":"羊毛","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0119"},{"ita":"La seta","chn":"真丝","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0120"},{"ita":"Il lino","chn":"亚麻","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0121"},{"ita":"Il cashmere","chn":"羊绒","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0122"},{"ita":"Il poliestere","chn":"涤纶","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0123"},{"ita":"Il nylon","chn":"尼龙","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0124"},{"ita":"La viscosa","chn":"粘胶纤维","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0125"},{"ita":"La fibra sintetica","chn":"合成纤维","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0126"},{"ita":"Il denim","chn":"牛仔布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0127"},{"ita":"Il jersey","chn":"针织布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0128"},{"ita":"Il velluto","chn":"天鹅绒","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0129"},{"ita":"Il tessuto tecnico","chn":"功能性面料","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0130"},{"ita":"Il capo","chn":"衣物 / 件","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0131"},{"ita":"La pezza","chn":"一匹布 / 一段布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0132"},{"ita":"Il rotolo di tessuto","chn":"一卷布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0133"},{"ita":"Il campione di tessuto","chn":"面料样布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0134"}]},{"title":"5.2 皮革与辅料","entries":[{"ita":"La pelle","chn":"真皮","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0135"},{"ita":"La pelle scamosciata","chn":"磨砂皮 / 麂皮","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0136"},{"ita":"L’ecopelle","chn":"人造革","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0137"},{"ita":"Il cuoio","chn":"皮革","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0138"},{"ita":"La fodera","chn":"衬里","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0139"},{"ita":"L’imbottitura","chn":"填充物","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0140"},{"ita":"Il filo","chn":"线","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0141"},{"ita":"Il filo di cotone","chn":"棉线","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0142"},{"ita":"Il filo di poliestere","chn":"涤纶线","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0143"},{"ita":"Il bottone","chn":"纽扣","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0144"},{"ita":"La cerniera lampo","chn":"拉链","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0145"},{"ita":"L’etichetta di composizione","chn":"成分标","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0146"},{"ita":"Il cartellino","chn":"吊牌","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0147"},{"ita":"La grammatura","chn":"克重","extra":"面料厚度","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0148"},{"ita":"La tintura","chn":"染色","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0149"},{"ita":"Il colore a campione","chn":"色样","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0150"}]}]},{"title":"第6部分 · ⛑ 安全生产","subsections":[{"title":"6.1 安全用语","entries":[{"ita":"La sicurezza sul lavoro","chn":"劳动安全","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0151"},{"ita":"Le misure di sicurezza","chn":"安全措施","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0152"},{"ita":"Il casco","chn":"安全帽","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0153"},{"ita":"I guanti","chn":"手套","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0154"},{"ita":"Gli occhiali di protezione","chn":"防护眼镜","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0155"},{"ita":"Le scarpe antinfortunistiche","chn":"劳保鞋","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0156"},{"ita":"Il grembiule","chn":"围裙","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0157"},{"ita":"L’estintore","chn":"灭火器","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0158"},{"ita":"L’uscita di sicurezza","chn":"安全出口","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0159"},{"ita":"La maschera","chn":"口罩","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0160"},{"ita":"Il rumore","chn":"噪音","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0161"},{"ita":"Il rischio","chn":"危险 / 风险","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0162"},{"ita":"L’infortunio","chn":"工伤 / 事故","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0163"},{"ita":"Il pronto soccorso","chn":"急救","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0164"},{"ita":"La cassetta del pronto soccorso","chn":"急救箱","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0165"}]},{"title":"6.2 紧急情况用语","entries":[{"ita":"Attenzione!","chn":"小心！注意！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0166"},{"ita":"Pericolo!","chn":"危险！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0167"},{"ita":"Fuoco!","chn":"着火了！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0168"},{"ita":"C’è un incendio!","chn":"起火了！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0169"},{"ita":"Chiamate i vigili del fuoco!","chn":"叫消防队！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0170"},{"ita":"C’è un infortunio!","chn":"有人受伤了！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0171"},{"ita":"Chiama il 112!","chn":"打112（紧急电话）！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0172"},{"ita":"Fermate la macchina!","chn":"关掉机器！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0173"},{"ita":"Staccate la corrente!","chn":"断电！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0174"},{"ita":"Andiamo fuori!","chn":"我们撤到外面！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0175"},{"ita":"Non toccare!","chn":"别碰！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0176"},{"ita":"State indietro!","chn":"后退！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0177"},{"ita":"Dove è il medico?","chn":"医生在哪里？","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0178"},{"ita":"Serve un’ambulanza!","chn":"需要救护车！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0179"},{"ita":"State attenti alla mano!","chn":"小心手！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0180"},{"ita":"La macchina è bloccata.","chn":"机器卡住了。","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0181"},{"ita":"C’è una perdita.","chn":"有泄漏。","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0182"}]}]},{"title":"第7部分 · 💬 车间对话","subsections":[{"title":"7.1 安排生产","entries":[{"ita":"Quanti pezzi dobbiamo fare?","chn":"我们要做多少件？","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0183"},{"ita":"Oggi facciamo cinquecento capi.","chn":"今天做五百件。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0184"},{"ita":"Quando è la consegna?","chn":"什么时候交货？","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0185"},{"ita":"La spedizione è venerdì.","chn":"周五发货。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0186"},{"ita":"Questo lotto è urgente.","chn":"这批很急。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0187"},{"ita":"Rallentiamo un po’.","chn":"我们慢一点。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0188"},{"ita":"Andiamo più veloci.","chn":"我们快一点。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0189"},{"ita":"La macchina si è rotta.","chn":"机器坏了。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0190"},{"ita":"Chiamo il tecnico.","chn":"我叫技术员。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0191"}]},{"title":"7.2 质量与返工","entries":[{"ita":"Questo punto è sbagliato.","chn":"这道针脚错了。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0192"},{"ita":"Devi rifare questo pezzo.","chn":"这件你要重做。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0193"},{"ita":"C’è un buco qui.","chn":"这里有个洞。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0194"},{"ita":"La cucitura è storta.","chn":"缝线歪了。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0195"},{"ita":"Va bene così?","chn":"这样可以吗？","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0196"},{"ita":"Sì, è perfetto.","chn":"是的，很好。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0197"},{"ita":"Scuci e rifai.","chn":"拆了重缝。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0198"},{"ita":"Controlla bene prima di imballare.","chn":"包装前仔细检查。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0199"},{"ita":"Questi vanno scartati.","chn":"这些要挑出来作废。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0200"}]},{"title":"7.3 报数与交接","entries":[{"ita":"Ho finito il taglio.","chn":"我裁完了。","extra":"👷 Tagliatore 裁剪工","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0201"},{"ita":"Passami il tessuto.","chn":"把布递给我。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0202"},{"ita":"Quanti ne hai fatti?","chn":"你做了多少？","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0203"},{"ita":"Ne ho fatti duecento.","chn":"我做了两百个。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0204"},{"ita":"Manca poco.","chn":"快好了。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0205"},{"ita":"Fai attenzione alle dita!","chn":"小心手指！","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0206"},{"ita":"Spegni la luce, chiudiamo.","chn":"关灯，我们下班了。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0207"},{"ita":"A domani, colleghi!","chn":"明天见，同事们！","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0208"}]},{"title":"7.4 卖家/管理常用语（工厂视角）","entries":[{"ita":"Benvenuto in fabbrica!","chn":"欢迎来厂里！","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0209"},{"ita":"Prego, si accomodi.","chn":"请进，请坐。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0210"},{"ita":"Questo è il nostro reparto.","chn":"这是我们的车间。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0211"},{"ita":"Produciamo abbigliamento.","chn":"我们生产服装。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0212"},{"ita":"Lavoriamo per conto terzi.","chn":"我们做代工。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0213"},{"ita":"Il minimo ordine è cinquecento pezzi.","chn":"起订量是五百件。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0214"},{"ita":"I prezzi sono molto competitivi.","chn":"价格很有竞争力。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0215"},{"ita":"Possiamo fare il campione.","chn":"我们可以打样。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0216"},{"ita":"La consegna è in due settimane.","chn":"两周内交货。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0217"},{"ita":"Le mostro il catalogo.","chn":"我给您看目录。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0218"},{"ita":"Accettiamo bonifico o contanti.","chn":"我们收转账或现金。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0219"},{"ita":"Faremo una fattura regolare.","chn":"我们开正规发票。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0220"},{"ita":"Grazie della visita!","chn":"感谢参观！","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0221"},{"ita":"Ci sentiamo per l’ordine.","chn":"订单的事我们再联系。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0222"}]}]},{"title":"第8部分 · 🗣 万能句型·职场文化","subsections":[{"title":"8.1 万能句型","entries":[{"ita":"Quanti pezzi servono?","chn":"需要多少件？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0223"},{"ita":"Quando è pronto?","chn":"什么时候好？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0224"},{"ita":"È urgente.","chn":"很急。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0225"},{"ita":"Va bene così.","chn":"这样可以。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0226"},{"ita":"Non va bene.","chn":"不行 / 不好。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0227"},{"ita":"Devo rifare.","chn":"我要重做。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0228"},{"ita":"Mi serve altro tessuto.","chn":"我还需要布。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0229"},{"ita":"La macchina non va.","chn":"机器不行了。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0230"},{"ita":"Fai attenzione.","chn":"你小心点。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0231"},{"ita":"Ho finito.","chn":"我做完了。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0232"},{"ita":"A che ora finiamo?","chn":"我们几点收工？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0233"},{"ita":"Posso fare una pausa?","chn":"我可以休息一下吗？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0234"},{"ita":"Dove sono i guanti?","chn":"手套在哪里？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0235"},{"ita":"Mi dia il modello.","chn":"把纸样给我。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0236"},{"ita":"Quanto costa al pezzo?","chn":"一件多少钱？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0237"},{"ita":"Grazie, a domani.","chn":"谢谢，明天见。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0238"}]},{"title":"8.2 意大利职场文化贴士","entries":[{"ita":"Il contratto di lavoro è obbligatorio.","chn":"劳动合同是必须的。","extra":"合法用工","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0239"},{"ita":"La busta paga va conservata.","chn":"工资单要保存好。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0240"},{"ita":"La pausa pranzo è di un’ora.","chn":"午休通常一小时。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0241"},{"ita":"La sicurezza viene prima di tutto.","chn":"安全高于一切。","extra":"铁律","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0242"},{"ita":"Il permesso di soggiorno serve per lavorare.","chn":"工作需合法居留。","extra":"法规","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0243"},{"ita":"Lo stipendio si paga mensile.","chn":"工资按月发。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0244"},{"ita":"Le ferie sono un diritto.","chn":"带薪休假是权利。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0245"},{"ita":"Le tredicesima è di dicembre.","chn":"第13薪在12月发。","extra":"意大利惯例","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0246"},{"ita":"La firma sulle buste paga è importante.","chn":"工资单签字很重要。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0247"},{"ita":"Contrattare il prezzo è raro.","chn":"代工议价空间小。","extra":"明码实价","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0248"}]},{"title":"8.3 卖家/管理万能句（工厂视角）","entries":[{"ita":"Cosa posso fare per lei?","chn":"我能为您做什么？","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0249"},{"ita":"Le mostro la nostra produzione.","chn":"我带您看我们的生产。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0250"},{"ita":"È il nostro prodotto più richiesto.","chn":"这是我们最畅销的产品。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0251"},{"ita":"Possiamo personalizzare.","chn":"我们可以定制。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0252"},{"ita":"Ha il campione con sé?","chn":"您带样衣了吗？","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0253"},{"ita":"Le preparo un preventivo.","chn":"我给您做份报价。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0254"},{"ita":"I tempi di consegna sono certi.","chn":"交货期有保证。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0255"},{"ita":"Accettiamo ordinativi grandi.","chn":"我们接大单。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0256"},{"ita":"Le do il mio biglietto da visita.","chn":"给您我的名片。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0257"},{"ita":"Resto a sua disposizione.","chn":"我随时为您服务。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0258"},{"ita":"Buona giornata!","chn":"祝您一天愉快！","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0259"}]}]}];
+const ALL_ENTRIES = [{"ita":"La fabbrica","chn":"工厂","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0001"},{"ita":"L’azienda","chn":"企业 / 公司","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0002"},{"ita":"La manifattura","chn":"制造业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0003"},{"ita":"Il settore tessile","chn":"纺织业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0004"},{"ita":"L’abbigliamento","chn":"服装业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0005"},{"ita":"La pelletteria","chn":"皮具业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0006"},{"ita":"La meccanica","chn":"机械加工业","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0007"},{"ita":"Prato","chn":"普拉托（著名华人工厂聚集地）","extra":"托斯卡纳","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0008"},{"ita":"Il distretto industriale","chn":"工业区","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0009"},{"ita":"La zona industriale","chn":"工业园","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0010"},{"ita":"Il titolare","chn":"老板 / 企业主","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0011"},{"ita":"Il socio","chn":"合伙人","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0012"},{"ita":"L’imprenditore cinese","chn":"华人企业家","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0013"},{"ita":"La produzione","chn":"生产","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0014"},{"ita":"Il made in Italy","chn":"意大利制造","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0015"},{"ita":"L’esportazione","chn":"出口","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0016"},{"ita":"La confezione","chn":"成衣加工 / 包装","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0017"},{"ita":"Il laboratorio","chn":"作坊 / 加工间","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.1 行业与产区","id":"audio_0018"},{"ita":"Il reparto","chn":"车间 / 部门","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0019"},{"ita":"Il reparto taglio","chn":"裁剪车间","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0020"},{"ita":"Il reparto cucito","chn":"缝纫车间","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0021"},{"ita":"Il reparto stiratura","chn":"整烫车间","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0022"},{"ita":"Il magazzino","chn":"仓库","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0023"},{"ita":"Il magazzino materie prime","chn":"原料仓","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0024"},{"ita":"Il magazzino prodotti finiti","chn":"成品仓","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0025"},{"ita":"L’ufficio","chn":"办公室","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0026"},{"ita":"Lo spogliatoio","chn":"更衣室","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0027"},{"ita":"La mensa","chn":"食堂","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0028"},{"ita":"I cancelli","chn":"厂门 / 大门","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0029"},{"ita":"Il parcheggio","chn":"停车场","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0030"},{"ita":"Il carico e scarico","chn":"装卸货区","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0031"},{"ita":"La linea di produzione","chn":"生产线","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0032"},{"ita":"Il turno","chn":"班次","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0033"},{"ita":"Il turno di giorno","chn":"白班","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0034"},{"ita":"Il turno di notte","chn":"夜班","extra":"","section":"第1部分 · 🏭 行业概况·工厂","subsection":"1.2 工厂部门与场所","id":"audio_0035"},{"ita":"Il direttore di fabbrica","chn":"厂长","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0036"},{"ita":"Il caporeparto","chn":"组长 / 车间主管","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0037"},{"ita":"Il responsabile di produzione","chn":"生产负责人","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0038"},{"ita":"Il capo macchina","chn":"机长","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0039"},{"ita":"Il controllore qualità","chn":"质检员","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0040"},{"ita":"Il magazziniere","chn":"仓库管理员","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0041"},{"ita":"Il fattorino","chn":"送货员","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0042"},{"ita":"L’addetto alle spedizioni","chn":"发货员","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0043"},{"ita":"L’amministratore","chn":"行政 / 财务","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0044"},{"ita":"L’interprete","chn":"翻译","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.1 管理岗位","id":"audio_0045"},{"ita":"L’operaio","chn":"工人（总称）","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0046"},{"ita":"L’operaia","chn":"女工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0047"},{"ita":"Il tagliatore","chn":"裁剪工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0048"},{"ita":"La cucitrice","chn":"缝纫工（女）","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0049"},{"ita":"Il cucitore","chn":"缝纫工（男）","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0050"},{"ita":"Il ricamatrice","chn":"绣花工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0051"},{"ita":"La stiratrice","chn":"熨烫工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0052"},{"ita":"L’imballatore","chn":"包装工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0053"},{"ita":"Il tagliacuci","chn":"锁边工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0054"},{"ita":"Il confezionista","chn":"车缝工 / 成衣工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0055"},{"ita":"L’apprendista","chn":"学徒","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0056"},{"ita":"L’operaio a cottimo","chn":"计件工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0057"},{"ita":"Il lavoratore","chn":"劳动者 / 员工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0058"},{"ita":"La mano d’opera","chn":"劳动力 / 人工","extra":"","section":"第2部分 · 👷 工种·岗位","subsection":"2.2 一线工人","id":"audio_0059"},{"ita":"La macchina da cucire","chn":"缝纫机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0060"},{"ita":"La macchina per cucire industriale","chn":"工业缝纫机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0061"},{"ita":"Il tagliacuci","chn":"锁边机 / 拷边机","extra":"overlock","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0062"},{"ita":"La macchina da taglio","chn":"裁布机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0063"},{"ita":"Il banco da taglio","chn":"裁剪台","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0064"},{"ita":"Le forbici da tessuto","chn":"裁布剪刀","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0065"},{"ita":"La rotella tagliatessuti","chn":"滚轮裁刀","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0066"},{"ita":"Il ferro da stiro","chn":"熨斗","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0067"},{"ita":"La caldaia per stiro","chn":"蒸汽烫台 / 锅炉","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0068"},{"ita":"La macchina per etichette","chn":"钉标机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0069"},{"ita":"La cucitrice a doppia catena","chn":"双针机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0070"},{"ita":"La bobina","chn":"梭芯 / 线轴","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0071"},{"ita":"L’ago","chn":"缝纫针","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0072"},{"ita":"Il piedino","chn":"压脚","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.1 缝纫与裁剪设备","id":"audio_0073"},{"ita":"Il carrello elevatore","chn":"叉车","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0074"},{"ita":"Il trasportatore","chn":"传送带","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0075"},{"ita":"La bilancia","chn":"秤","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0076"},{"ita":"Il metro a nastro","chn":"卷尺","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0077"},{"ita":"La stampante di etichette","chn":"标签打印机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0078"},{"ita":"Il computer di controllo","chn":"控制电脑","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0079"},{"ita":"Il compressore","chn":"空压机","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0080"},{"ita":"La scatola","chn":"纸箱","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0081"},{"ita":"Il nastro adesivo","chn":"胶带","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0082"},{"ita":"Il pallet","chn":"托盘","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0083"},{"ita":"L'imballaggio","chn":"包装材料","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0084"},{"ita":"La gru","chn":"吊车","extra":"","section":"第3部分 · ⚙ 厂房·设备","subsection":"3.2 辅助与搬运","id":"audio_0085"},{"ita":"Il taglio","chn":"裁剪","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0086"},{"ita":"Il modello","chn":"纸样 / 样板","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0087"},{"ita":"La stesura","chn":"铺布 / 排料","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0088"},{"ita":"La cucitura","chn":"缝纫","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0089"},{"ita":"Il sopraggitto","chn":"包缝 / 锁边","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0090"},{"ita":"La rifinitura","chn":"整烫 / 修饰","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0091"},{"ita":"Il controllo qualità","chn":"质检","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0092"},{"ita":"La stiratura","chn":"熨烫","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0093"},{"ita":"L’assemblaggio","chn":"组装 / 拼接","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0094"},{"ita":"L’imbastitura","chn":"假缝 / 粗缝","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0095"},{"ita":"La piega","chn":"折边","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0096"},{"ita":"L’orlo","chn":"下摆 / 卷边","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0097"},{"ita":"La confezione","chn":"成衣制作","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0098"},{"ita":"L’etichetta","chn":"商标 / 洗标","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0099"},{"ita":"Il bottone","chn":"纽扣","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0100"},{"ita":"La cerniera","chn":"拉链","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.1 生产工序","id":"audio_0101"},{"ita":"L’imballaggio","chn":"包装","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0102"},{"ita":"La scatola di cartone","chn":"纸箱","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0103"},{"ita":"Il polistirolo","chn":"泡沫 / 保丽龙","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0104"},{"ita":"La pellicola","chn":"塑料膜","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0105"},{"ita":"Il nastro da imballo","chn":"打包带","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0106"},{"ita":"La palettizzazione","chn":"打托盘","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0107"},{"ita":"La spedizione","chn":"发货","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0108"},{"ita":"La consegna","chn":"送货","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0109"},{"ita":"Il corriere","chn":"快递 / 货运公司","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0110"},{"ita":"La fattura","chn":"发票","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0111"},{"ita":"Il documento di trasporto","chn":"运单","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0112"},{"ita":"Il codice a barre","chn":"条形码","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0113"},{"ita":"Il lotto","chn":"批次","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0114"},{"ita":"La quantità","chn":"数量","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0115"},{"ita":"La scadenza","chn":"交货期 / 截止日","extra":"","section":"第4部分 · 🔄 工序·流程","subsection":"4.2 包装与发货","id":"audio_0116"},{"ita":"Il tessuto","chn":"布料 / 面料","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0117"},{"ita":"Il cotone","chn":"棉","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0118"},{"ita":"La lana","chn":"羊毛","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0119"},{"ita":"La seta","chn":"真丝","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0120"},{"ita":"Il lino","chn":"亚麻","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0121"},{"ita":"Il cashmere","chn":"羊绒","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0122"},{"ita":"Il poliestere","chn":"涤纶","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0123"},{"ita":"Il nylon","chn":"尼龙","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0124"},{"ita":"La viscosa","chn":"粘胶纤维","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0125"},{"ita":"La fibra sintetica","chn":"合成纤维","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0126"},{"ita":"Il denim","chn":"牛仔布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0127"},{"ita":"Il jersey","chn":"针织布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0128"},{"ita":"Il velluto","chn":"天鹅绒","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0129"},{"ita":"Il tessuto tecnico","chn":"功能性面料","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0130"},{"ita":"Il capo","chn":"衣物 / 件","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0131"},{"ita":"La pezza","chn":"一匹布 / 一段布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0132"},{"ita":"Il rotolo di tessuto","chn":"一卷布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0133"},{"ita":"Il campione di tessuto","chn":"面料样布","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.1 纺织面料","id":"audio_0134"},{"ita":"La pelle","chn":"真皮","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0135"},{"ita":"La pelle scamosciata","chn":"磨砂皮 / 麂皮","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0136"},{"ita":"L’ecopelle","chn":"人造革","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0137"},{"ita":"Il cuoio","chn":"皮革","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0138"},{"ita":"La fodera","chn":"衬里","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0139"},{"ita":"L’imbottitura","chn":"填充物","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0140"},{"ita":"Il filo","chn":"线","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0141"},{"ita":"Il filo di cotone","chn":"棉线","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0142"},{"ita":"Il filo di poliestere","chn":"涤纶线","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0143"},{"ita":"Il bottone","chn":"纽扣","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0144"},{"ita":"La cerniera lampo","chn":"拉链","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0145"},{"ita":"L’etichetta di composizione","chn":"成分标","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0146"},{"ita":"Il cartellino","chn":"吊牌","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0147"},{"ita":"La grammatura","chn":"克重","extra":"面料厚度","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0148"},{"ita":"La tintura","chn":"染色","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0149"},{"ita":"Il colore a campione","chn":"色样","extra":"","section":"第5部分 · 🧵 面料·原料","subsection":"5.2 皮革与辅料","id":"audio_0150"},{"ita":"La sicurezza sul lavoro","chn":"劳动安全","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0151"},{"ita":"Le misure di sicurezza","chn":"安全措施","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0152"},{"ita":"Il casco","chn":"安全帽","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0153"},{"ita":"I guanti","chn":"手套","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0154"},{"ita":"Gli occhiali di protezione","chn":"防护眼镜","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0155"},{"ita":"Le scarpe antinfortunistiche","chn":"劳保鞋","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0156"},{"ita":"Il grembiule","chn":"围裙","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0157"},{"ita":"L’estintore","chn":"灭火器","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0158"},{"ita":"L’uscita di sicurezza","chn":"安全出口","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0159"},{"ita":"La maschera","chn":"口罩","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0160"},{"ita":"Il rumore","chn":"噪音","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0161"},{"ita":"Il rischio","chn":"危险 / 风险","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0162"},{"ita":"L’infortunio","chn":"工伤 / 事故","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0163"},{"ita":"Il pronto soccorso","chn":"急救","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0164"},{"ita":"La cassetta del pronto soccorso","chn":"急救箱","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.1 安全用语","id":"audio_0165"},{"ita":"Attenzione!","chn":"小心！注意！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0166"},{"ita":"Pericolo!","chn":"危险！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0167"},{"ita":"Fuoco!","chn":"着火了！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0168"},{"ita":"C’è un incendio!","chn":"起火了！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0169"},{"ita":"Chiamate i vigili del fuoco!","chn":"叫消防队！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0170"},{"ita":"C’è un infortunio!","chn":"有人受伤了！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0171"},{"ita":"Chiama il 112!","chn":"打112（紧急电话）！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0172"},{"ita":"Fermate la macchina!","chn":"关掉机器！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0173"},{"ita":"Staccate la corrente!","chn":"断电！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0174"},{"ita":"Andiamo fuori!","chn":"我们撤到外面！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0175"},{"ita":"Non toccare!","chn":"别碰！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0176"},{"ita":"State indietro!","chn":"后退！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0177"},{"ita":"Dove è il medico?","chn":"医生在哪里？","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0178"},{"ita":"Serve un’ambulanza!","chn":"需要救护车！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0179"},{"ita":"State attenti alla mano!","chn":"小心手！","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0180"},{"ita":"La macchina è bloccata.","chn":"机器卡住了。","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0181"},{"ita":"C’è una perdita.","chn":"有泄漏。","extra":"","section":"第6部分 · ⛑ 安全生产","subsection":"6.2 紧急情况用语","id":"audio_0182"},{"ita":"Quanti pezzi dobbiamo fare?","chn":"我们要做多少件？","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0183"},{"ita":"Oggi facciamo cinquecento capi.","chn":"今天做五百件。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0184"},{"ita":"Quando è la consegna?","chn":"什么时候交货？","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0185"},{"ita":"La spedizione è venerdì.","chn":"周五发货。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0186"},{"ita":"Questo lotto è urgente.","chn":"这批很急。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0187"},{"ita":"Rallentiamo un po’.","chn":"我们慢一点。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0188"},{"ita":"Andiamo più veloci.","chn":"我们快一点。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0189"},{"ita":"La macchina si è rotta.","chn":"机器坏了。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0190"},{"ita":"Chiamo il tecnico.","chn":"我叫技术员。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.1 安排生产","id":"audio_0191"},{"ita":"Questo punto è sbagliato.","chn":"这道针脚错了。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0192"},{"ita":"Devi rifare questo pezzo.","chn":"这件你要重做。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0193"},{"ita":"C’è un buco qui.","chn":"这里有个洞。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0194"},{"ita":"La cucitura è storta.","chn":"缝线歪了。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0195"},{"ita":"Va bene così?","chn":"这样可以吗？","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0196"},{"ita":"Sì, è perfetto.","chn":"是的，很好。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0197"},{"ita":"Scuci e rifai.","chn":"拆了重缝。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0198"},{"ita":"Controlla bene prima di imballare.","chn":"包装前仔细检查。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0199"},{"ita":"Questi vanno scartati.","chn":"这些要挑出来作废。","extra":"👷 Controllore 质检","section":"第7部分 · 💬 车间对话","subsection":"7.2 质量与返工","id":"audio_0200"},{"ita":"Ho finito il taglio.","chn":"我裁完了。","extra":"👷 Tagliatore 裁剪工","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0201"},{"ita":"Passami il tessuto.","chn":"把布递给我。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0202"},{"ita":"Quanti ne hai fatti?","chn":"你做了多少？","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0203"},{"ita":"Ne ho fatti duecento.","chn":"我做了两百个。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0204"},{"ita":"Manca poco.","chn":"快好了。","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0205"},{"ita":"Fai attenzione alle dita!","chn":"小心手指！","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0206"},{"ita":"Spegni la luce, chiudiamo.","chn":"关灯，我们下班了。","extra":"👷 Capo 组长","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0207"},{"ita":"A domani, colleghi!","chn":"明天见，同事们！","extra":"👷 Operaio 工人","section":"第7部分 · 💬 车间对话","subsection":"7.3 报数与交接","id":"audio_0208"},{"ita":"Benvenuto in fabbrica!","chn":"欢迎来厂里！","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0209"},{"ita":"Prego, si accomodi.","chn":"请进，请坐。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0210"},{"ita":"Questo è il nostro reparto.","chn":"这是我们的车间。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0211"},{"ita":"Produciamo abbigliamento.","chn":"我们生产服装。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0212"},{"ita":"Lavoriamo per conto terzi.","chn":"我们做代工。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0213"},{"ita":"Il minimo ordine è cinquecento pezzi.","chn":"起订量是五百件。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0214"},{"ita":"I prezzi sono molto competitivi.","chn":"价格很有竞争力。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0215"},{"ita":"Possiamo fare il campione.","chn":"我们可以打样。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0216"},{"ita":"La consegna è in due settimane.","chn":"两周内交货。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0217"},{"ita":"Le mostro il catalogo.","chn":"我给您看目录。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0218"},{"ita":"Accettiamo bonifico o contanti.","chn":"我们收转账或现金。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0219"},{"ita":"Faremo una fattura regolare.","chn":"我们开正规发票。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0220"},{"ita":"Grazie della visita!","chn":"感谢参观！","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0221"},{"ita":"Ci sentiamo per l’ordine.","chn":"订单的事我们再联系。","extra":"👷 Titolare 老板","section":"第7部分 · 💬 车间对话","subsection":"7.4 卖家/管理常用语（工厂视角）","id":"audio_0222"},{"ita":"Quanti pezzi servono?","chn":"需要多少件？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0223"},{"ita":"Quando è pronto?","chn":"什么时候好？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0224"},{"ita":"È urgente.","chn":"很急。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0225"},{"ita":"Va bene così.","chn":"这样可以。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0226"},{"ita":"Non va bene.","chn":"不行 / 不好。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0227"},{"ita":"Devo rifare.","chn":"我要重做。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0228"},{"ita":"Mi serve altro tessuto.","chn":"我还需要布。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0229"},{"ita":"La macchina non va.","chn":"机器不行了。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0230"},{"ita":"Fai attenzione.","chn":"你小心点。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0231"},{"ita":"Ho finito.","chn":"我做完了。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0232"},{"ita":"A che ora finiamo?","chn":"我们几点收工？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0233"},{"ita":"Posso fare una pausa?","chn":"我可以休息一下吗？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0234"},{"ita":"Dove sono i guanti?","chn":"手套在哪里？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0235"},{"ita":"Mi dia il modello.","chn":"把纸样给我。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0236"},{"ita":"Quanto costa al pezzo?","chn":"一件多少钱？","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0237"},{"ita":"Grazie, a domani.","chn":"谢谢，明天见。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.1 万能句型","id":"audio_0238"},{"ita":"Il contratto di lavoro è obbligatorio.","chn":"劳动合同是必须的。","extra":"合法用工","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0239"},{"ita":"La busta paga va conservata.","chn":"工资单要保存好。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0240"},{"ita":"La pausa pranzo è di un’ora.","chn":"午休通常一小时。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0241"},{"ita":"La sicurezza viene prima di tutto.","chn":"安全高于一切。","extra":"铁律","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0242"},{"ita":"Il permesso di soggiorno serve per lavorare.","chn":"工作需合法居留。","extra":"法规","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0243"},{"ita":"Lo stipendio si paga mensile.","chn":"工资按月发。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0244"},{"ita":"Le ferie sono un diritto.","chn":"带薪休假是权利。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0245"},{"ita":"Le tredicesima è di dicembre.","chn":"第13薪在12月发。","extra":"意大利惯例","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0246"},{"ita":"La firma sulle buste paga è importante.","chn":"工资单签字很重要。","extra":"","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0247"},{"ita":"Contrattare il prezzo è raro.","chn":"代工议价空间小。","extra":"明码实价","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.2 意大利职场文化贴士","id":"audio_0248"},{"ita":"Cosa posso fare per lei?","chn":"我能为您做什么？","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0249"},{"ita":"Le mostro la nostra produzione.","chn":"我带您看我们的生产。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0250"},{"ita":"È il nostro prodotto più richiesto.","chn":"这是我们最畅销的产品。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0251"},{"ita":"Possiamo personalizzare.","chn":"我们可以定制。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0252"},{"ita":"Ha il campione con sé?","chn":"您带样衣了吗？","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0253"},{"ita":"Le preparo un preventivo.","chn":"我给您做份报价。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0254"},{"ita":"I tempi di consegna sono certi.","chn":"交货期有保证。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0255"},{"ita":"Accettiamo ordinativi grandi.","chn":"我们接大单。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0256"},{"ita":"Le do il mio biglietto da visita.","chn":"给您我的名片。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0257"},{"ita":"Resto a sua disposizione.","chn":"我随时为您服务。","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0258"},{"ita":"Buona giornata!","chn":"祝您一天愉快！","extra":"👷 Titolare 老板","section":"第8部分 · 🗣 万能句型·职场文化","subsection":"8.3 卖家/管理万能句（工厂视角）","id":"audio_0259"}];
+
+
+let activeSection = 0;
+let searchQuery = '';
+let currentAudio = null;
+let currentBtn = null;
+const audioCache = {};
+const sectionColors = ['var(--green)','var(--blue)','var(--gold)','var(--purple)','var(--teal)','var(--red)','var(--green)','var(--blue)','var(--gold)','var(--purple)','var(--teal)'];
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function renderTitle(title) { return title.replace(/🇮🇹/g, '<span class="flag-it" style="width:22px;height:15px;display:inline-block;vertical-align:middle;"></span>'); }
+function hasChinese(t) { for (let c of t) { if (c >= '\u4e00' && c <= '\u9fff') return true; } return false; }
+function hasAudio(e) { return !hasChinese(e.ita) && e.ita.trim().length > 1; }
+
+function renderTabs() {
+  const c = document.getElementById('tabBarInner');
+  c.innerHTML = '';
+  SECTIONS.forEach((sec, i) => {
+    if (i === 0) return;
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (activeSection === i ? ' active' : '');
+    let label = sec.title.replace(/🇮🇹/g, '').trim();
+    const m = label.match(/(第.+部分|附录)\s*[·•]?\s*(.*)/);
+    if (m) label = (m[2] || m[1]).substring(0, 14);
+    const ci = (i - 1) % sectionColors.length;
+    btn.innerHTML = '<span class="drop-dot" style="background:' + sectionColors[ci] + ';width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block;"></span><span class="tab-label">' + escHtml(label) + '</span>';
+    btn.dataset.idx = i;
+    btn.addEventListener('click', () => switchSection(i));
+    c.appendChild(btn);
+  });
+}
+
+function switchSection(idx) {
+  activeSection = idx;
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.toggle('active', parseInt(b.dataset.idx) === idx); });
+  renderContent();
+}
+
+function renderContent() {
+  const main = document.getElementById('mainContent');
+
+  // Global search mode: show results from ALL sections
+  if (searchQuery) {
+    let html = '<div class="section-title">🔍 搜索结果</div>';
+    let total = 0;
+    SECTIONS.forEach(sec => {
+      if (sec.title.startsWith('🇮🇹')) return; // skip overview
+      let secMatches = 0;
+      let secHtml = '';
+      const subs = sec.subsections || [];
+      subs.forEach(sub => {
+        const ve = sub.entries.filter(e => matchesSearch(e));
+        if (ve.length === 0) return;
+        secMatches += ve.length;
+        secHtml += '<div class="subsection-title">' + escHtml(sub.title) + ' <span style="font-weight:400;color:var(--text-faint);font-size:13px;">' + ve.length + '</span></div>';
+        const isDialog = sub.title.includes('对话') || sub.title.includes('场景');
+        if (isDialog) { secHtml += renderDialogEntries(ve); }
+        else { secHtml += ve.map(e => renderEntry(e)).join(''); }
+      });
+      if (sec.entries && sec.entries.length > 0) {
+        const v = sec.entries.filter(e => matchesSearch(e));
+        if (v.length > 0) { secMatches += v.length; secHtml += v.map(e => renderEntry(e)).join(''); }
+      }
+      if (secMatches > 0) {
+        total += secMatches;
+        html += '<div class="subsection-title" style="margin-top:24px;font-size:18px;border-left-color:var(--purple);">' + renderTitle(sec.title) + ' <span style="font-weight:400;color:var(--text-faint);font-size:13px;">' + secMatches + ' 条</span></div>';
+        html += secHtml;
+      }
+    });
+    html = html.replace('<div class="section-title">🔍 搜索结果</div>', '<div class="section-title">🔍 搜索结果</div><div class="section-desc">关键词 "' + escHtml(searchQuery) + '" 共匹配 ' + total + ' 条</div>');
+    if (total === 0) { html = '<div class="null-state"><div class="null-icon">🔍</div><p>没有找到匹配 "' + escHtml(searchQuery) + '" 的内容</p></div>'; }
+    main.innerHTML = html;
+    document.querySelectorAll('.play-btn[data-audio-id]').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); playAudio(this); }); });
+    return;
+  }
+
+  // Normal mode: show current section
+  const sec = SECTIONS[activeSection];
+  if (!sec) { main.innerHTML = '<div class="null-state"><p>暂无内容</p></div>'; return; }
+  let html = '<div class="section-title">' + renderTitle(sec.title) + '</div>';
+  html += '<div class="section-desc">' + (sec.subsections.length + ' 个分类 · ' + countSectionEntries(sec) + ' 条内容') + '</div>';
+  const subs = sec.subsections || [];
+  subs.forEach(sub => {
+    const ve = sub.entries.filter(e => matchesSearch(e));
+    if (searchQuery && ve.length === 0) return;
+    html += '<div class="subsection-title">' + escHtml(sub.title) + ' <span style="font-weight:400;color:var(--text-faint);font-size:13px;">' + ve.length + '</span></div>';
+    const isDialog = sub.title.includes('对话') || sub.title.includes('场景');
+    if (isDialog) { html += renderDialogEntries(ve); }
+    else { ve.forEach(e => { html += renderEntry(e); }); }
+  });
+  if (sec.entries && sec.entries.length > 0) {
+    const v = sec.entries.filter(e => matchesSearch(e));
+    if (!searchQuery || v.length > 0) { v.forEach(e => { html += renderEntry(e); }); }
+  }
+  if (html.indexOf('entry-card') === -1) { html = '<div class="null-state"><div class="null-icon">🔍</div><p>没有找到匹配 "' + escHtml(searchQuery) + '" 的内容</p></div>'; }
+  main.innerHTML = html;
+  document.querySelectorAll('.play-btn[data-audio-id]').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); playAudio(this); }); });
+  // Preload this section's audio so the first tap plays instantly.
+  prefetchSectionAudio();
+}
+
+function renderDialogEntries(entries) {
+  let html = '<div class="dialog-group">';
+  entries.forEach(e => {
+    const role = e.extra && (e.extra.includes('👩') || e.extra.includes('✂️') || e.extra.includes('👨')) ? e.extra : '';
+    const au = hasAudio(e);
+    html += '<div class="entry-card">';
+    if (au) html += '<button class="play-btn" data-audio-id="' + e.id + '">▶</button>';
+    html += '<div class="entry-body">';
+    if (role) html += '<div class="entry-role">' + escHtml(role) + '</div>';
+    html += '<div class="entry-ita">' + escHtml(e.ita) + '</div>';
+    html += '<div class="entry-chn">' + escHtml(e.chn) + '</div>';
+    if (e.extra && !role) html += '<div class="entry-extra">' + escHtml(e.extra) + '</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderEntry(e) {
+  const role = e.extra && (e.extra.includes('👩') || e.extra.includes('✂️') || e.extra.includes('👨')) ? e.extra : '';
+  const au = hasAudio(e);
+  let html = '<div class="entry-card">';
+  if (au) html += '<button class="play-btn" data-audio-id="' + e.id + '">▶</button>';
+  html += '<div class="entry-body">';
+  if (role) html += '<div class="entry-role">' + escHtml(role) + '</div>';
+  html += '<div class="entry-ita">' + escHtml(e.ita) + '</div>';
+  html += '<div class="entry-chn">' + escHtml(e.chn) + '</div>';
+  if (e.extra && e.extra !== '—' && !role) html += '<div class="entry-extra">' + escHtml(e.extra) + '</div>';
+  html += '</div></div>';
+  return html;
+}
+
+// Stable version param: lets the browser cache audio across replays/sessions.
+// Bump this constant when you replace any audio file, so clients re-fetch.
+const AUDIO_VER = '1';
+function audioUrl(aid) { return 'audio/' + aid + '.mp3?v=' + AUDIO_VER; }
+function getAudio(aid) {
+  if (!audioCache[aid]) {
+    const a = new Audio();
+    a.dataset.audioId = aid;
+    a.preload = 'auto';
+    a.src = audioUrl(aid);
+    a.addEventListener('ended', function() {
+      if (currentBtn && currentBtn.dataset.audioId === aid) { currentBtn.textContent = '▶'; currentBtn.classList.remove('playing'); }
+      if (currentAudio && currentAudio.dataset.audioId === aid) { currentAudio = null; currentBtn = null; }
+    });
+    a.addEventListener('play', function() {
+      // interrupt: any audio starting stops all others
+      Object.keys(audioCache).forEach(function(k) {
+        if (k === aid) return;
+        var o = audioCache[k];
+        if (o && !o.paused) { try { o.pause(); o.currentTime = 0; } catch (e) {} }
+        var ib = document.querySelectorAll('[data-audio-id="' + k + '"]');
+        Array.prototype.forEach.call(ib, function(b) { b.textContent = '▲'; if (b.classList) b.classList.remove('playing'); });
+      });
+    });
+    audioCache[aid] = a;
+  }
+  return audioCache[aid];
+}
+// Efficient audio prefetch: only warm audio for entries near the viewport, plus on hover/tap.
+// Replaces the old behavior that eagerly loaded the ENTIRE active section (40-60 parallel requests).
+const _PREFETCH_MAX = 6;
+let _prefetchQueue = [];
+let _prefetchRunning = 0;
+let _audioObserver = null;
+let _hoverBound = false;
+function _enqueueAudio(aid) {
+  if (!aid) return;
+  if (window.__audioWarmed && window.__audioWarmed[aid]) return;
+  if (_prefetchQueue.indexOf(aid) !== -1) return;
+  _prefetchQueue.push(aid);
+  _pumpPrefetch();
+}
+function _pumpPrefetch() {
+  while (_prefetchRunning < _PREFETCH_MAX && _prefetchQueue.length) {
+    const aid = _prefetchQueue.shift();
+    const a = getAudio(aid);
+    if (!a) continue;
+    if (a.__warmed) continue;
+    _prefetchRunning++;
+    (function(audio){
+      const done = function(){ audio.__warmed = true; if (!window.__audioWarmed) window.__audioWarmed = {}; window.__audioWarmed[aid] = true; _prefetchRunning--; _pumpPrefetch(); };
+      audio.addEventListener('canplay', done, { once: true });
+      audio.addEventListener('error', function(){ _prefetchRunning--; _pumpPrefetch(); }, { once: true });
+      try { audio.load(); } catch (err) { _prefetchRunning--; _pumpPrefetch(); }
+    })(a);
+  }
+}
+function prefetchSectionAudio() {
+  if ('IntersectionObserver' in window) {
+    if (_audioObserver) _audioObserver.disconnect();
+    _audioObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(en) {
+        if (en.isIntersecting) {
+          _enqueueAudio(en.target.getAttribute('data-audio-id'));
+          _audioObserver.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '300px' });
+    document.querySelectorAll('.play-btn[data-audio-id]').forEach(function(btn){ _audioObserver.observe(btn); });
+  } else {
+    const sec = SECTIONS[activeSection];
+    if (!sec) return;
+    const ids = [];
+    (sec.subsections || []).forEach(s => s.entries.forEach(e => { if (hasAudio(e)) ids.push(e.id); }));
+    (sec.entries || []).forEach(e => { if (hasAudio(e)) ids.push(e.id); });
+    ids.slice(0, 12).forEach(function(id){ try { getAudio(id).load(); } catch (e) {} });
+  }
+  if (!_hoverBound) {
+    _hoverBound = true;
+    document.addEventListener('pointerover', function(e){ var b = e.target.closest && e.target.closest('.play-btn[data-audio-id]'); if (b) _enqueueAudio(b.getAttribute('data-audio-id')); }, true);
+    document.addEventListener('touchstart', function(e){ var b = e.target.closest && e.target.closest('.play-btn[data-audio-id]'); if (b) _enqueueAudio(b.getAttribute('data-audio-id')); }, true);
+  }
+}
+function playAudio(btn) {
+  const aid = btn.dataset.audioId;
+  const entry = ALL_ENTRIES.find(e => e.id === aid);
+  if (!entry) return;
+  if (currentAudio && !currentAudio.paused) {
+    if (currentAudio.dataset.audioId === aid) { currentAudio.pause(); currentAudio.currentTime = 0; if (currentBtn) { currentBtn.textContent = '▶'; currentBtn.classList.remove('playing'); } currentAudio = null; currentBtn = null; return; }
+    currentAudio.pause(); currentAudio.currentTime = 0;
+    if (currentBtn) { currentBtn.textContent = '▶'; currentBtn.classList.remove('playing'); }
+  }
+  const a = getAudio(aid);
+  a.currentTime = 0;
+  // Play immediately within the user gesture so it also works on iOS/Safari/mobile.
+  const markPlaying = function() { btn.textContent = '⏸'; btn.classList.add('playing'); currentAudio = a; currentBtn = btn; };
+  const pr = a.play();
+  if (pr && pr.then) {
+    pr.then(markPlaying).catch(function(err) {
+      console.warn('Play rejected:', err);
+      let retried = false;
+      const retry = function() {
+        if (retried) return; retried = true;
+        const p2 = a.play();
+        if (p2 && p2.then) p2.then(markPlaying).catch(showPlayError);
+      };
+      a.addEventListener('canplay', retry, { once: true });
+      a.addEventListener('error', showPlayError, { once: true });
+    });
+  }
+}
+function showPlayError() {
+  if (currentBtn) { currentBtn.textContent = '⚠'; currentBtn.style.color = 'var(--red)'; }
+  setTimeout(function() { if (currentBtn) { currentBtn.textContent = '▶'; currentBtn.style.color = ''; } }, 2500);
+  currentAudio = null; currentBtn = null;
+}
+
+function matchesSearch(e) { if (!searchQuery) return true; const q = searchQuery.toLowerCase(); return e.ita.toLowerCase().includes(q) || e.chn.toLowerCase().includes(q) || (e.extra && e.extra.toLowerCase().includes(q)); }
+function countSectionEntries(sec) { let c = 0; (sec.subsections || []).forEach(s => { c += s.entries.length; }); c += (sec.entries || []).length; return c; }
+function countVisibleEntries(sec) { let c = 0; (sec.subsections || []).forEach(s => { s.entries.forEach(e => { if (matchesSearch(e)) c++; }); }); (sec.entries || []).forEach(e => { if (matchesSearch(e)) c++; }); return c; }
+
+// Mobile Nav
+const navToggle = document.getElementById('navToggle');
+const navDropdown = document.getElementById('navDropdown');
+const navOverlay = document.getElementById('navOverlay');
+const navCurrent = document.getElementById('navCurrent');
+let navOpen = false;
+const sectionLabels = [];
+
+function buildNavLabels() {
+  sectionLabels.length = 0;
+  SECTIONS.forEach((sec, i) => {
+    if (i === 0) { sectionLabels.push(''); return; }
+    let label = sec.title.replace(/🇮🇹/g, '').trim();
+    const m = label.match(/(第.+部分|附录)\s*[·•]?\s*(.*)/);
+    if (m) label = (m[2] || m[1]).substring(0, 14); else label = label.substring(0, 14);
+    sectionLabels.push(label);
+  });
+}
+
+function renderNavDropdown() {
+  if (!navDropdown) return;
+  navDropdown.innerHTML = '';
+  SECTIONS.forEach((sec, i) => {
+    if (i === 0) return;
+    const label = sectionLabels[i] || '';
+    const btn = document.createElement('button');
+    btn.className = 'nav-drop-btn' + (activeSection === i ? ' active' : '');
+    const ci = (i - 1) % sectionColors.length;
+    btn.innerHTML = '<span class="drop-dot" style="background:' + sectionColors[ci] + '"></span><span class="drop-label">' + escHtml(label) + '</span><span class="drop-check">✓</span>';
+    btn.addEventListener('click', function() { switchSection(i); closeNav(); });
+    navDropdown.appendChild(btn);
+  });
+}
+
+function closeNav() { navOpen = false; if (navToggle) navToggle.classList.remove('open'); if (navDropdown) navDropdown.classList.remove('show'); if (navOverlay) navOverlay.classList.remove('show'); document.body.style.overflow = ''; }
+function toggleNav() { navOpen = !navOpen; if (navToggle) navToggle.classList.toggle('open', navOpen); if (navDropdown) navDropdown.classList.toggle('show', navOpen); if (navOverlay) navOverlay.classList.toggle('show', navOpen); document.body.style.overflow = navOpen ? 'hidden' : ''; }
+function updateNavCurrent() { if (navCurrent) navCurrent.textContent = sectionLabels[activeSection] || '选择分类'; }
+
+const _origSwitch = switchSection;
+switchSection = function(idx) {
+  _origSwitch(idx);
+  updateNavCurrent();
+  window.scrollTo(0, 0);
+  if (navDropdown && navDropdown.children.length > 0) { navDropdown.querySelectorAll('.nav-drop-btn').forEach((b, i) => { b.classList.toggle('active', (i + 1) === idx); }); }
+};
+
+if (navToggle) navToggle.addEventListener('click', toggleNav);
+if (navOverlay) navOverlay.addEventListener('click', closeNav);
+
+// Search
+const searchInput = document.getElementById('searchInput');
+const clearBtn = document.getElementById('clearBtn');
+searchInput.addEventListener('input', function() { searchQuery = this.value.trim(); clearBtn.classList.toggle('show', searchQuery.length > 0); renderContent(); });
+clearBtn.addEventListener('click', function() { searchInput.value = ''; searchQuery = ''; clearBtn.classList.remove('show'); renderContent(); searchInput.focus(); });
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f') { e.preventDefault(); searchInput.focus(); }
+  if (e.key === 'Escape' && navOpen) closeNav();
+});
+
+// Init
+buildNavLabels();
+renderTabs();
+renderNavDropdown();
+switchSection(1);
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js').catch(function(e){ console.warn('SW register failed', e); });
+  });
+}
+</script>
+<style>
+/* 正文内容字号放大 50% (2026-09-17) */
+.entry-card .entry-ita { font-size: 22.5px; }
+.entry-card .entry-chn { font-size: 21px; }
+.entry-card .entry-extra { font-size: 18px; }
+.entry-card .entry-role { font-size: 18px; }
+.section-title { font-size: 33px; }
+.section-desc { font-size: 21px; }
+.subsection-title { font-size: 25.5px; }
+@media (max-width: 768px) {
+  .entry-card .entry-ita { font-size: 21px; }
+  .entry-card .entry-chn { font-size: 19.5px; }
+  .entry-card .entry-extra { font-size: 18px; }
+  .entry-card .entry-role { font-size: 18px; }
+  .section-title { font-size: 28.5px; }
+  .section-desc { font-size: 21px; }
+  .subsection-title { font-size: 22.5px; }
+}
+</style>
+<style>
+/* 正文统一减小 20% (2026-09-18) */
+.entry-card .entry-ita { font-size: 18px; }
+.entry-card .entry-chn { font-size: 16.8px; }
+.entry-card .entry-extra { font-size: 14.4px; }
+.entry-card .entry-role { font-size: 14.4px; }
+.section-title { font-size: 26.4px; }
+.section-desc { font-size: 16.8px; }
+.subsection-title { font-size: 20.4px; }
+@media (max-width: 768px) {
+  .entry-card .entry-ita { font-size: 16.8px; }
+  .entry-card .entry-chn { font-size: 15.6px; }
+  .entry-card .entry-extra { font-size: 14.4px; }
+  .entry-card .entry-role { font-size: 14.4px; }
+  .section-title { font-size: 22.8px; }
+  .section-desc { font-size: 16.8px; }
+  .subsection-title { font-size: 18px; }
+}
+</style>
+</body>
+</html>
